@@ -11,12 +11,12 @@ export default class Profile extends Component {
   render() {
     if (this.props.user.role === 'player') {
       return (
-        <PlayerProfile user={this.props.user} logout={this.logout} change={this.updateUser}/>
+        <PlayerProfile user={this.props.user} playerInfo={this.props.playerInfo[0]} logout={this.logout} change={this.updateUser}/>
       )
     }
     else if (this.props.user.role === 'coach') {
       return (
-        <CoachProfile user={this.props.user} logout={this.logout} change={this.updateUser}/>
+        <CoachProfile user={this.props.user} coachInfo={this.props.coachInfo[0]} logout={this.logout} change={this.updateUser}/>
       )
     }
     else {

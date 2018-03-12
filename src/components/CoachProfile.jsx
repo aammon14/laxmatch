@@ -1,24 +1,18 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
 
 export default class CoachProfile extends Component {
   constructor(props) {
     super(props);
-    this.logout = this.logout.bind(this);
   }
-
-  logout() {
-    this.props.logout();
-    this.props.history.push('/')
-  }
-
   render() {
     return (
       <div>
-       <h1>Hello Coach {this.props.user.name}, welcome to your account!</h1>
-       <br />
-       <button onClick={this.logout}>Logout</button>
+        <h1>Hello Coach {this.props.user.name}, welcome to your account!</h1>
+        <h3>Zip Code: {this.props.coachInfo.zip_code}</h3>
+        <h3>Price: ${this.props.coachInfo.price} per hour</h3>
+        <p>About me: {this.props.coachInfo.bio}</p>
+        <img src={this.props.coachInfo.image} />
       </div>
-    )
+    );
   }
 }

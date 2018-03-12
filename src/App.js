@@ -1,17 +1,17 @@
 import React, { Component } from "react";
-import { BrowserRouter, Link, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import axios from "axios";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Nav from "./components/Nav";
-import Profile from "./components/Profile"
+import Profile from "./components/Profile";
 // import CoachList from "./componenets/CoachList";
 // import CoachPortal from "./components/CoachPortal";
-import PlayerProfile from "./components/PlayerProfile";
+// import PlayerProfile from "./components/PlayerProfile";
 // import Message from "./components/Message";
 import TokenService from "./services/TokenService";
-import "./App.css"
+import "./App.css";
 
 class App extends Component {
   constructor(props) {
@@ -19,18 +19,24 @@ class App extends Component {
     this.state = {
       user: {},
       logged: false,
-      users: []
-    }
+      users: [],
+      coachInfo: {},
+      playerInfo: {}
+    };
     this.signup = this.signup.bind(this);
     this.login = this.login.bind(this);
     this.checkLogin = this.checkLogin.bind(this);
     this.findUsers = this.findUsers.bind(this);
     this.updateUser = this.updateUser.bind(this);
+    this.findCoachInfo = this.findCoachInfo.bind(this);
+    this.findPlayerInfo = this.findPlayerInfo.bind(this);
   }
 
   componentDidMount() {
     this.findUsers();
-    console.log('in componentDidMount, this.state: ', this.state)
+    this.findCoachInfo();
+    this.findPlayerInfo();
+    console.log("in componentDidMount, this.state: ", this.state);
   }
 
   signup(data) {
@@ -52,47 +58,72 @@ class App extends Component {
     })
       .then(resp => {
         TokenService.save(resp.data.token);
-        this.setState({ user: resp.data.user, logged: true })
-        console.log('in login, user: ', this.state)
+        this.setState({ user: resp.data.user, logged: true });
+        console.log("in login, user: ", this.state);
       })
       .catch(err => console.log(`err: ${err}`));
   }
 
   updateUser(data) {
-    console.log('in updateUser, user is: ', this.state);
+    console.log("in updateUser, user is: ", this.state);
     axios("http://localhost:3000/users/login", {
       method: "PUT",
       data
-    }).then(resp => {
+    })
+      .then(resp => {
         TokenService.save(resp.data.token);
-        this.setState({ user: resp.data.user })
+        this.setState({ user: resp.data.user });
       })
       .catch(err => console.log(`err: ${err}`));
   }
 
   logout(ev) {
     ev.preventDefault();
-    this.setState({ user: {}, logged: false })
+    this.setState({ user: {}, logged: false });
     TokenService.destroy();
   }
 
   findUsers() {
-    axios('http://localhost:3000/users', {
+    axios("http://localhost:3000/users", {
       method: "GET"
-    }).then(resp => {
-      this.setState({ users: resp.data.users });
-      console.log("in findUsers, users: ", this.state.users);
     })
-    .catch(err => console.log(`err: ${err}`));
+      .then(resp => {
+        this.setState({ users: resp.data });
+        console.log("in findUsers, users: ", this.state.users);
+      })
+      .catch(err => console.log(`err: ${err}`));
+  }
+
+  findCoachInfo() {
+    axios(`http://localhost:3000/users/${this.state.user.id}/coaches`, {
+      method: "GET"
+    })
+      .then(resp => {
+        this.setState({ coachInfo: resp.data });
+        console.log("in findCoachInfo, coachInfo: ", this.state.coachInfo);
+      })
+      .catch(err => console.log(`err: ${err}`));
+  }
+
+  findPlayerInfo() {
+    axios(`http://localhost:3000/users/${this.state.user.id}/players`, {
+      method: "GET"
+    })
+      .then(resp => {
+        this.setState({ playerInfo: resp.data });
+        console.log("in findPlayerInfo, playerInfo: ", this.state.playerInfo);
+      })
+      .catch(err => console.log(`err: ${err}`));
   }
 
   checkLogin() {
-    axios('http://localhost:3000/isLoggedIn', {
+    axios("http://localhost:3000/isLoggedIn", {
       headers: {
-        Authorization: `Bearer ${TokenService.read()}`,
-      },
-    }).then(resp => console.log(resp))
-    .catch(err => console.log(err));
+        Authorization: `Bearer ${TokenService.read()}`
+      }
+    })
+      .then(resp => console.log(resp))
+      .catch(err => console.log(err));
   }
 
   render() {
@@ -133,18 +164,27 @@ class App extends Component {
                     <Nav />
                     <Login {...props} submit={this.login} />
                   </div>
-                )
+                );
               }}
             />
             <Route
-              exact path="/profile"
+              exact
+              path="/profile"
               render={props => {
                 return (
                   <div>
                     <Nav />
-                    <Profile {...props} user={this.state.user} logged={this.state.logged} logout={this.logout} change={this.updateUser} />
+                    <Profile
+                      {...props}
+                      user={this.state.user}
+                      coachInfo={this.state.coachInfo}
+                      playerInfo={this.state.playerInfo}
+                      logged={this.state.logged}
+                      logout={this.logout}
+                      change={this.updateUser}
+                    />
                   </div>
-                )
+                );
               }}
             />
           </Switch>

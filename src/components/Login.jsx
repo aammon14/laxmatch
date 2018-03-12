@@ -5,24 +5,20 @@ import { Link } from 'react-router-dom';
 export default class Signup extends Component {
   constructor(props) {
     super(props);
-
-    // set initial state
     this.state = {
       email: '',
       password: ''
     };
-
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  // preventDefault and lift state back up to the parent
   handleSubmit(e) {
     e.preventDefault();
     this.props.submit(this.state);
+    this.props.history.push('./profile')
   }
 
-  // update form state
   handleChange(e) {
     const { name, value } = e.target
     this.setState({
@@ -31,7 +27,6 @@ export default class Signup extends Component {
   }
 
   render() {
-
     return (
       <div>
         <h1>Sign In</h1>
