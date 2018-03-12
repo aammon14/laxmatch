@@ -6,9 +6,8 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Nav from "./components/Nav";
 import Profile from "./components/Profile";
-// import CoachList from "./componenets/CoachList";
+import CoachList from "./components/CoachList";
 // import CoachPortal from "./components/CoachPortal";
-// import PlayerProfile from "./components/PlayerProfile";
 // import Message from "./components/Message";
 import TokenService from "./services/TokenService";
 import "./App.css";
@@ -185,6 +184,21 @@ class App extends Component {
                     />
                   </div>
                 );
+              }}
+            />
+            <Route
+              exact path="/coaches"
+              render={props => {
+                return (
+                  <div>
+                    <Nav />
+                    <CoachList
+                      {...props}
+                      users={this.state.users}
+                      coachInfo={this.state.coachInfo}
+                    />
+                  </div>
+                )
               }}
             />
           </Switch>

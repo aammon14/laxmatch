@@ -7,11 +7,11 @@ export default class Home extends Component {
       <div className='homePage'>
         <div className='homeTitle'>
           <h1>Welcome to Lax Match</h1>
-          <h3>Find your coach, up your game</h3>
+          <h2>Find your coach, up your game</h2>
         </div>
-        <div className='homeButtons'>
-          <Link to="/signup"><button>Sign Up</button></Link>
-          <Link to="/login"><button>Log In</button></Link>
+        <div>
+          <Link to="/signup"><button className='homeButtons'>Sign Up</button></Link>
+          <Link to="/login"><button className='homeButtons'>Log In</button></Link>
         </div>
       </div>
     )

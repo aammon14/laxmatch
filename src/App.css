@@ -16,28 +16,25 @@
 .nav_links {
   /*margin: auto 35px;*/
   text-decoration: none;
-  width: 12%;
+  width: 10%;
   text-align: center;
-  margin: auto 2px;
-}
-.nav_container {
-  width: 40vw;
-  display: flex;
+  margin: auto 0;
 }
 .nav_none {
   text-decoration: none;
   color: white;
-  font-size: 18px;
-  font-weight: 200;
+  font-size: 20px;
+  font-weight: 300;
 }
 .nav_none:hover {
   text-decoration: none;
   color: white;
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 800;
 }
 body {
   margin-top: 50px;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 /*Home page*/
@@ -48,20 +45,33 @@ body {
   background-image: url('./images/background.jpg');
   background-size: contain;
   opacity: 0.75;
+  text-shadow: 2px 2px #0042ad;
   background-repeat: no-repeat;
 }
 .homeTitle {
   padding-top: 50px;
 }
 .homeTitle h1 {
-  font-size: 50px;
+  text-shadow:5px 5px 10px #0042ad;
+  font-size: 75px;
 }
-.homeButtons button {
-  width: 100px;
+.homeButtons {
+  width: 125px;
   margin: 10px;
   padding: 15px;
   border-radius: 5px;
   border: 2px solid white;
   background: #0042ad;
   color: white;
+  font-size: 20px;
+}
+.homeButtons:hover {
+  width: 125px;
+  margin: 10px;
+  padding: 15px;
+  border-radius: 5px;
+  border: 2px solid #0042ad;
+  background: white;
+  color: #0042ad;
+  font-size: 20px;
 }
