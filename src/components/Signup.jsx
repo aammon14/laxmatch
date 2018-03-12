@@ -5,21 +5,19 @@ import { Link } from 'react-router-dom';
 export default class Signup extends Component {
   constructor(props) {
     super(props);
-
-    // set initial state
     this.state = {
       name: '',
       email: '',
-      password: ''
+      password: '',
+      role: ''
     };
-
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  // preventDefault and lift state back up to the parent
   handleSubmit(e) {
     e.preventDefault();
+    console.log('in signup comp, this.state:', this.state)
     this.props.submit(this.state);
   }
 
@@ -42,7 +40,7 @@ export default class Signup extends Component {
               type="text" 
               name="name" 
               onChange={this.handleChange}
-              value={this.state.email} />
+              value={this.state.name} />
           </label>
           <br />
           <label>Email
@@ -59,6 +57,13 @@ export default class Signup extends Component {
               name="password" 
               onChange={this.handleChange}
               value={this.state.password} />
+          </label>
+          <br />
+          <label>Role
+            <select name='role' value={this.state.role} onChange={this.handleChange}>
+              <option name='role' value='player'>Player</option>
+              <option name='role' value='coach'>Coach</option>
+            </select>
           </label>
           <br />
           <button type="submit" value="Submit">Submit</button>

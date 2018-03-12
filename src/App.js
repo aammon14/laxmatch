@@ -4,14 +4,17 @@ import axios from "axios";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import Nav from "./components/Nav";
 // import CoachList from "./componenets/CoachList";
 // import CoachPortal from "./components/CoachPortal";
 // import PlayerProfile from "./components/PlayerProfile";
 // import Message from "./components/Message";
 import TokenService from "./services/TokenService";
+import "./App.css"
 
 class App extends Component {
   signup(data) {
+    console.log("in app.js signup, data is ", data);
     axios("http://localhost:3000/users/", {
       method: "POST",
       data
@@ -43,23 +46,45 @@ class App extends Component {
       <div>
         <BrowserRouter>
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route
+              exact
+              path="/"
+              render={props => {
+                return (
+                  <div>
+                    <Nav />
+                    <Home />
+                  </div>
+                );
+              }}
+            />
             <Route
               exact
               path="/signup"
-              component={props => (
-                <Signup {...props} submit={this.signup.bind(this)} />
-              )}
+              render={props => {
+                return (
+                  <div>
+                    <Nav />
+                    <Signup {...props} submit={this.signup.bind(this)} />
+                  </div>
+                );
+              }}
             />
             <Route
               exact
               path="/login"
-              component={props => (
-                <Login {...props} submit={this.login.bind(this)} />
-              )}
+              render={props => {
+                return (
+                  <div>
+                  <Nav />
+                  <Login {...props} submit={this.login.bind(this)} />
+                  </div>
+                )
+              }}
             />
           </Switch>
         </BrowserRouter>
+
         <div>
           <p>
             <button onClick={this.logout.bind(this)}>Logout</button>
