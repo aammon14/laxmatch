@@ -7,11 +7,11 @@ class Nav extends Component {
       <div className="nav_bar">
         <div className="nav_links">
           <Link className="nav_none" to="/">
-            Find A Coach
+            Coaches
           </Link>
         </div>
         <div className="nav_links right_link">
-          <Link className="nav_none" to="/">
+          <Link className="nav_none" to="/profile">
             Profile
           </Link>
         </div>

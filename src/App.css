@@ -3,7 +3,7 @@
   top: 0;
   left: 0;
   height: 50px;
-  background-color: blue;
+  background-color: #0042ad;
   position: fixed;
   width: 100%;
   z-index: 90;
@@ -38,4 +38,30 @@
 }
 body {
   margin-top: 50px;
+}
+
+/*Home page*/
+.homePage {
+  color: white;
+  text-align: center;
+  height: 800px;
+  background-image: url('./images/background.jpg');
+  background-size: contain;
+  opacity: 0.75;
+  background-repeat: no-repeat;
+}
+.homeTitle {
+  padding-top: 50px;
+}
+.homeTitle h1 {
+  font-size: 50px;
+}
+.homeButtons button {
+  width: 100px;
+  margin: 10px;
+  padding: 15px;
+  border-radius: 5px;
+  border: 2px solid white;
+  background: #0042ad;
+  color: white;
 }
