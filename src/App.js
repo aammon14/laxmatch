@@ -136,7 +136,7 @@ class App extends Component {
               render={props => {
                 return (
                   <div>
-                    <Nav />
+                    <Nav user={this.state.user} />
                     <Home />
                   </div>
                 );
@@ -148,7 +148,7 @@ class App extends Component {
               render={props => {
                 return (
                   <div>
-                    <Nav />
+                    <Nav user={this.state.user} />
                     <Signup {...props} submit={this.signup} />
                   </div>
                 );
@@ -160,7 +160,7 @@ class App extends Component {
               render={props => {
                 return (
                   <div>
-                    <Nav />
+                    <Nav user={this.state.user} />
                     <Login {...props} submit={this.login} />
                   </div>
                 );
@@ -172,7 +172,7 @@ class App extends Component {
               render={props => {
                 return (
                   <div>
-                    <Nav />
+                    <Nav user={this.state.user} />
                     <Profile
                       {...props}
                       user={this.state.user}
@@ -191,7 +191,7 @@ class App extends Component {
               render={props => {
                 return (
                   <div>
-                    <Nav />
+                    <Nav user={this.state.user} />
                     <CoachList
                       {...props}
                       users={this.state.users}
