@@ -16,6 +16,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loadedInitialData: false,
       user: {},
       logged: false,
       users: [],
@@ -24,6 +25,7 @@ class App extends Component {
     };
     this.signup = this.signup.bind(this);
     this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this);
     this.checkLogin = this.checkLogin.bind(this);
     this.findUsers = this.findUsers.bind(this);
     this.updateUser = this.updateUser.bind(this);
@@ -87,7 +89,10 @@ class App extends Component {
       method: "GET"
     })
       .then(resp => {
-        this.setState({ users: resp.data });
+        this.setState({ 
+          users: resp.data,
+          loadedInitialData: true 
+        });
         console.log("in findUsers, users: ", this.state.users);
       })
       .catch(err => console.log(`err: ${err}`));
@@ -98,7 +103,10 @@ class App extends Component {
       method: "GET"
     })
       .then(resp => {
-        this.setState({ coachInfo: resp.data });
+        this.setState({ 
+          coachInfo: resp.data,
+          loadedInitialData: true
+          });
         console.log("in findCoachInfo, coachInfo: ", this.state.coachInfo);
       })
       .catch(err => console.log(`err: ${err}`));
@@ -109,7 +117,10 @@ class App extends Component {
       method: "GET"
     })
       .then(resp => {
-        this.setState({ playerInfo: resp.data });
+        this.setState({ 
+          playerInfo: resp.data,
+          loadedInitialData: true 
+        });
         console.log("in findPlayerInfo, playerInfo: ", this.state.playerInfo);
       })
       .catch(err => console.log(`err: ${err}`));
@@ -126,6 +137,7 @@ class App extends Component {
   }
 
   render() {
+    if (this.state.loadedInitialData === true) {
     return (
       <div>
         <BrowserRouter>
@@ -196,6 +208,7 @@ class App extends Component {
                       {...props}
                       users={this.state.users}
                       coachInfo={this.state.coachInfo}
+                      dataLoaded={this.state.loadedInitialData}
                     />
                   </div>
                 )
@@ -206,11 +219,12 @@ class App extends Component {
 
         <div>
           <p>
-            <button onClick={this.logout.bind(this)}>Logout</button>
+            <button onClick={this.logout}>Logout</button>
           </p>
         </div>
       </div>
     );
+    } return <div>LOADING...</div>;
   }
 }
 
