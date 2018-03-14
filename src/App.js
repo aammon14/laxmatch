@@ -10,7 +10,7 @@ import CoachList from "./components/CoachList";
 import Coach from "./components/Coach"
 import PlayerForm from "./components/PlayerForm"
 // import CoachPortal from "./components/CoachPortal";
-// import Message from "./components/Message";
+import Message from "./components/Message";
 import TokenService from "./services/TokenService";
 import "./App.css";
 
@@ -40,7 +40,7 @@ class App extends Component {
   componentDidMount() {
     this.findUsers();
     this.findCoachInfo();
-    // this.findPlayerInfo();
+    this.findPlayerInfo();
     console.log("in componentDidMount, this.state: ", this.state);
   }
 
@@ -67,7 +67,7 @@ class App extends Component {
         TokenService.save(resp.data.token);
         this.setState({ user: resp.data.user, logged: true });
         this.findPlayerInfo();
-        //console.log("in login, user: ", this.state);
+        console.log("in login, user: ", this.state);
       })
       .catch(err => console.log(`err: ${err}`));
   }
@@ -290,6 +290,25 @@ class App extends Component {
                     />
                   </div>
                 );
+              }}
+            />
+            <Route
+              exact
+              path="/Message"
+              render={props => {
+                return (
+                  <div>
+                    <Nav user={this.state.user} />
+                    <Message
+                      {...props}
+                      user={this.state.user}
+                      coachInfo={this.state.coachInfo}
+                      playerInfo={this.state.playerInfo}
+                      logged={this.state.logged}
+                      logout={this.logout}
+                    />
+                  </div>
+                )
               }}
             />
           </Switch>

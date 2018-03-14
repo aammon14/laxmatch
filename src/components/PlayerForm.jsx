@@ -6,6 +6,7 @@ export default class PlayerForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: 0,
       age: '',
       zip_code: '',
       bio: ''

@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 export default class CoachList extends Component {
   constructor(props) {
@@ -21,6 +22,9 @@ export default class CoachList extends Component {
                       <div key={j}>
                         <p>{info.bio}</p>
                         <p>Zip code: {info.zip_code}</p>
+                        <Link to='./Message'>
+                          <button>Book a Lesson!</button>
+                        </Link>
                       </div>
                     )}
                   })}
