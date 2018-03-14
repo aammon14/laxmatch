@@ -21,7 +21,9 @@ export default class Signup extends Component {
     this.props.submit(this.state);
     console.log('in sign up submit, this.state: ', this.state)
     if (this.state.role === 'player') {
-      this.props.history.push('/playerForm')
+      this.props.history.push('/')
+    } else if (this.state.role === 'coach') {
+      this.props.history.push('/')
     }
     
   }

@@ -9,6 +9,7 @@ import Profile from "./components/Profile";
 import CoachList from "./components/CoachList";
 import Coach from "./components/Coach"
 import PlayerForm from "./components/PlayerForm"
+import CoachForm from "./components/CoachForm"
 // import CoachPortal from "./components/CoachPortal";
 import Message from "./components/Message";
 import TokenService from "./services/TokenService";
@@ -30,8 +31,9 @@ class App extends Component {
     this.logout = this.logout.bind(this);
     this.checkLogin = this.checkLogin.bind(this);
     this.findUsers = this.findUsers.bind(this);
-    this.updateUser = this.updateUser.bind(this);
+    //this.updateUser = this.updateUser.bind(this);
     this.updatePlayer = this.updatePlayer.bind(this);
+    this.updateCoach = this.updateCoach.bind(this);
     this.findCoachInfo = this.findCoachInfo.bind(this);
     this.findPlayerInfo = this.findPlayerInfo.bind(this);
     this.createPlayerInfo = this.createPlayerInfo.bind(this);
@@ -54,6 +56,7 @@ class App extends Component {
         TokenService.save(resp.data.token);
         this.setState({ user: resp.data.user });
         console.log("in signup, this.state: ", this.state);
+        this.findUsers
       })
       .catch(err => console.log(`err: ${err}`));
   }
@@ -64,9 +67,12 @@ class App extends Component {
       data
     })
       .then(resp => {
+        console.log("login resp ", resp);
         TokenService.save(resp.data.token);
-        this.setState({ user: resp.data.user, logged: true });
-        this.findPlayerInfo();
+        this.setState({ user: resp.data.user, logged: true});
+        console.log("state is ", this.state);
+        this.findPlayerInfo;
+        this.findCoachInfo;
         console.log("in login, user: ", this.state);
       })
       .catch(err => console.log(`err: ${err}`));
@@ -79,24 +85,38 @@ class App extends Component {
     })
       .then(resp => {
         TokenService.save(resp.data.token);
+        this.findPlayerInfo();
       })
       .catch(err => console.log(`err: ${err}`));
   }
 
-  updateUser(data) {
-    console.log("in updateUser, user is: ", this.state);
-    axios("http://localhost:3000/users/login", {
-      method: "PUT",
+  createCoachInfo(data) {
+    axios(`http://localhost:3000/users/:id/coach`, {
+      method: "POST",
       data
     })
       .then(resp => {
         TokenService.save(resp.data.token);
-        this.setState({ user: resp.data.user });
-        this.findUsers;
-        this.findPlayerInfo
+        this.findCoachInfo();
       })
       .catch(err => console.log(`err: ${err}`));
   }
+
+  // updateUser(data) {
+  //   console.log("in updateUser, user is: ", this.state);
+  //   axios("http://localhost:3000/users/login", {
+  //     method: "PUT",
+  //     data
+  //   })
+  //     .then(resp => {
+  //       TokenService.save(resp.data.token);
+  //       this.setState({ user: resp.data.user });
+  //       this.findUsers;
+  //       this.findPlayerInfo;
+  //       this.findCoachInfo;
+  //     })
+  //     .catch(err => console.log(`err: ${err}`));
+  // }
 
   logout(ev) {
     ev.preventDefault();
@@ -110,8 +130,7 @@ class App extends Component {
     })
       .then(resp => {
         this.setState({ 
-          users: resp.data,
-          loadedInitialData: true 
+          users: resp.data
         });
         //console.log("in findUsers, users: ", this.state.users);
       })
@@ -126,17 +145,19 @@ class App extends Component {
         this.setState({ 
           coachInfo: resp.data,
           loadedInitialData: true
-          });
-        //console.log("in findCoachInfo, coachInfo: ", this.state.coachInfo);
+        });
+        console.log("in findCoachInfo, coachInfo: ", this.state.coachInfo);
       })
       .catch(err => console.log(`err: ${err}`));
   }
 
   findPlayerInfo() {
-    axios(`http://localhost:3000/users/${this.state.user.id}/player`, {
+    console.log('in findPlayerInfo, user is ', this.state.user);
+    axios(`http://localhost:3000/users/${this.state.user.id}/players`, {
       method: "GET"
     })
       .then(resp => {
+        console.log("in findPlayerInfo, resp is ", resp.data);
         this.setState({ 
           playerInfo: resp.data,
           loadedInitialData: true 
@@ -154,7 +175,8 @@ class App extends Component {
       data
     }).then(resp => {
       TokenService.save(resp.data.token);
-      this.setState({ coachInfo: resp.data.coachInfo});
+      this.setState({ coachInfo: resp.data.coachInfo });
+      this.findCoachInfo();
     })
     .catch(err => console.log(`err: ${err}`));
   }
@@ -166,7 +188,9 @@ class App extends Component {
       data
     }).then(resp => {
       TokenService.save(resp.data.token);
-      this.setState({ playerInfo: resp.data.playerInfo});
+      this.setState({ playerInfo: resp.data.playerInfo });
+      console.log('in updatePlayer, playerInfo is', this.state.playerInfo);
+      this.findPlayerInfo();
     })
     .catch(err => console.log(`err: ${err}`));
   }
@@ -239,6 +263,9 @@ class App extends Component {
                       logout={this.logout}
                       update={this.updateUser}
                       updatePlayer={this.updatePlayer}
+                      updateCoach={this.updateCoach}
+                      findCoachInfo={this.findCoachInfo}
+                      findPlayerInfo={this.findPlayerInfo}
                     />
                   </div>
                 );
@@ -287,6 +314,22 @@ class App extends Component {
                       {...props}
                       user={this.state.user}
                       create={this.createPlayerInfo}
+                    />
+                  </div>
+                );
+              }}
+            />
+            <Route
+              exact
+              path="/CoachForm"
+              render={props => {
+                return (
+                  <div>
+                    <Nav user={this.state.user} />
+                    <CoachForm
+                      {...props}
+                      user={this.state.user}
+                      create={this.createCoachInfo}
                     />
                   </div>
                 );

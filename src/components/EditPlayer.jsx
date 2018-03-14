@@ -16,6 +16,7 @@ export default class EditPlayer extends Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.submit(this.state);
+    this.props.findPlayerInfo();
   }
 
   handleChange(e) {

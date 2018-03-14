@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class UserForm extends Component {
+export default class EditCoach extends Component {
   constructor(props) {
     super(props);
     this.state = {
