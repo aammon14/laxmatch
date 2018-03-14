@@ -4,7 +4,7 @@
   left: 0;
   height: 50px;
   background: linear-gradient(#0042ad, black);
-  position: fixed;
+  position: absolute;
   width: 100%;
   z-index: 90;
   display: flex;

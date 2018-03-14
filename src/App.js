@@ -7,6 +7,8 @@ import Signup from "./components/Signup";
 import Nav from "./components/Nav";
 import Profile from "./components/Profile";
 import CoachList from "./components/CoachList";
+import Coach from "./components/Coach"
+import PlayerForm from "./components/PlayerForm"
 // import CoachPortal from "./components/CoachPortal";
 // import Message from "./components/Message";
 import TokenService from "./services/TokenService";
@@ -29,14 +31,16 @@ class App extends Component {
     this.checkLogin = this.checkLogin.bind(this);
     this.findUsers = this.findUsers.bind(this);
     this.updateUser = this.updateUser.bind(this);
+    this.updatePlayer = this.updatePlayer.bind(this);
     this.findCoachInfo = this.findCoachInfo.bind(this);
     this.findPlayerInfo = this.findPlayerInfo.bind(this);
+    this.createPlayerInfo = this.createPlayerInfo.bind(this);
   }
 
   componentDidMount() {
     this.findUsers();
     this.findCoachInfo();
-    this.findPlayerInfo();
+    // this.findPlayerInfo();
     console.log("in componentDidMount, this.state: ", this.state);
   }
 
@@ -48,6 +52,8 @@ class App extends Component {
     })
       .then(resp => {
         TokenService.save(resp.data.token);
+        this.setState({ user: resp.data.user });
+        console.log("in signup, this.state: ", this.state);
       })
       .catch(err => console.log(`err: ${err}`));
   }
@@ -60,7 +66,19 @@ class App extends Component {
       .then(resp => {
         TokenService.save(resp.data.token);
         this.setState({ user: resp.data.user, logged: true });
-        console.log("in login, user: ", this.state);
+        this.findPlayerInfo();
+        //console.log("in login, user: ", this.state);
+      })
+      .catch(err => console.log(`err: ${err}`));
+  }
+
+  createPlayerInfo(data) {
+    axios(`http://localhost:3000/users/:id/player`, {
+      method: "POST",
+      data
+    })
+      .then(resp => {
+        TokenService.save(resp.data.token);
       })
       .catch(err => console.log(`err: ${err}`));
   }
@@ -74,6 +92,8 @@ class App extends Component {
       .then(resp => {
         TokenService.save(resp.data.token);
         this.setState({ user: resp.data.user });
+        this.findUsers;
+        this.findPlayerInfo
       })
       .catch(err => console.log(`err: ${err}`));
   }
@@ -93,7 +113,7 @@ class App extends Component {
           users: resp.data,
           loadedInitialData: true 
         });
-        console.log("in findUsers, users: ", this.state.users);
+        //console.log("in findUsers, users: ", this.state.users);
       })
       .catch(err => console.log(`err: ${err}`));
   }
@@ -107,13 +127,13 @@ class App extends Component {
           coachInfo: resp.data,
           loadedInitialData: true
           });
-        console.log("in findCoachInfo, coachInfo: ", this.state.coachInfo);
+        //console.log("in findCoachInfo, coachInfo: ", this.state.coachInfo);
       })
       .catch(err => console.log(`err: ${err}`));
   }
 
   findPlayerInfo() {
-    axios(`http://localhost:3000/users/${this.state.user.id}/players`, {
+    axios(`http://localhost:3000/users/${this.state.user.id}/player`, {
       method: "GET"
     })
       .then(resp => {
@@ -124,6 +144,31 @@ class App extends Component {
         console.log("in findPlayerInfo, playerInfo: ", this.state.playerInfo);
       })
       .catch(err => console.log(`err: ${err}`));
+  }
+
+
+  updateCoach(data) {
+    //console.log('in updateCoach, coach is ', this.state.coachInfo);
+    axios(`http://localhost:3000/users/${this.state.user.id}/coach`, {
+      method: "PUT",
+      data
+    }).then(resp => {
+      TokenService.save(resp.data.token);
+      this.setState({ coachInfo: resp.data.coachInfo});
+    })
+    .catch(err => console.log(`err: ${err}`));
+  }
+
+  updatePlayer(data) {
+    //console.log('in updatePlayer, player is ', this.state.playerInfo);
+    axios(`http://localhost:3000/users/${this.state.user.id}/player`, {
+      method: "PUT",
+      data
+    }).then(resp => {
+      TokenService.save(resp.data.token);
+      this.setState({ playerInfo: resp.data.playerInfo});
+    })
+    .catch(err => console.log(`err: ${err}`));
   }
 
   checkLogin() {
@@ -192,7 +237,8 @@ class App extends Component {
                       playerInfo={this.state.playerInfo}
                       logged={this.state.logged}
                       logout={this.logout}
-                      change={this.updateUser}
+                      update={this.updateUser}
+                      updatePlayer={this.updatePlayer}
                     />
                   </div>
                 );
@@ -212,6 +258,38 @@ class App extends Component {
                     />
                   </div>
                 )
+              }}
+            />
+            <Route
+              exact
+              path="/coaches/:id"
+              render={props => {
+                return (
+                  <div>
+                    <Nav user={this.state.user} />
+                    <Coach
+                      {...props}
+                      users={this.state.users}
+                      coachInfo={this.state.coachInfo}
+                    />
+                  </div>
+                );
+              }}
+            />
+            <Route
+              exact
+              path="/PlayerForm"
+              render={props => {
+                return (
+                  <div>
+                    <Nav user={this.state.user} />
+                    <PlayerForm
+                      {...props}
+                      user={this.state.user}
+                      create={this.createPlayerInfo}
+                    />
+                  </div>
+                );
               }}
             />
           </Switch>

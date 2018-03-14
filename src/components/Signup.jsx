@@ -19,6 +19,11 @@ export default class Signup extends Component {
     e.preventDefault();
     console.log('in signup comp, this.state:', this.state)
     this.props.submit(this.state);
+    console.log('in sign up submit, this.state: ', this.state)
+    if (this.state.role === 'player') {
+      this.props.history.push('/playerForm')
+    }
+    
   }
 
   // update form state
@@ -61,6 +66,7 @@ export default class Signup extends Component {
           <br />
           <label>Role
             <select name='role' value={this.state.role} onChange={this.handleChange}>
+              <option>-- Select --</option>
               <option name='role' value='player'>Player</option>
               <option name='role' value='coach'>Coach</option>
             </select>
