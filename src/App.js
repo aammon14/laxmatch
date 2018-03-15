@@ -31,7 +31,6 @@ class App extends Component {
     this.logout = this.logout.bind(this);
     this.checkLogin = this.checkLogin.bind(this);
     this.findUsers = this.findUsers.bind(this);
-    //this.updateUser = this.updateUser.bind(this);
     this.updatePlayer = this.updatePlayer.bind(this);
     this.updateCoach = this.updateCoach.bind(this);
     this.findCoachInfo = this.findCoachInfo.bind(this);
@@ -44,21 +43,6 @@ class App extends Component {
     this.findCoachInfo();
     this.findPlayerInfo();
     console.log("in componentDidMount, this.state: ", this.state);
-  }
-
-  signup(data) {
-    console.log("in app.js signup, data is ", data);
-    axios("http://localhost:3000/users/", {
-      method: "POST",
-      data
-    })
-      .then(resp => {
-        TokenService.save(resp.data.token);
-        this.setState({ user: resp.data.user });
-        console.log("in signup, this.state: ", this.state);
-        this.findUsers
-      })
-      .catch(err => console.log(`err: ${err}`));
   }
 
   login(data) {
@@ -74,6 +58,37 @@ class App extends Component {
         this.findPlayerInfo;
         this.findCoachInfo;
         console.log("in login, user: ", this.state);
+      })
+      .catch(err => console.log(`err: ${err}`));
+  }
+
+  checkLogin() {
+    axios("http://localhost:3000/isLoggedIn", {
+      headers: {
+        Authorization: `Bearer ${TokenService.read()}`
+      }
+    })
+      .then(resp => console.log(resp))
+      .catch(err => console.log(err));
+  }
+
+  logout(ev) {
+    ev.preventDefault();
+    this.setState({ user: {}, logged: false });
+    TokenService.destroy();
+  }
+
+  signup(data) {
+    console.log("in app.js signup, data is ", data);
+    axios("http://localhost:3000/users/", {
+      method: "POST",
+      data
+    })
+      .then(resp => {
+        TokenService.save(resp.data.token);
+        this.setState({ user: resp.data.user });
+        console.log("in signup, this.state: ", this.state);
+        this.findUsers
       })
       .catch(err => console.log(`err: ${err}`));
   }
@@ -102,27 +117,6 @@ class App extends Component {
       .catch(err => console.log(`err: ${err}`));
   }
 
-  // updateUser(data) {
-  //   console.log("in updateUser, user is: ", this.state);
-  //   axios("http://localhost:3000/users/login", {
-  //     method: "PUT",
-  //     data
-  //   })
-  //     .then(resp => {
-  //       TokenService.save(resp.data.token);
-  //       this.setState({ user: resp.data.user });
-  //       this.findUsers;
-  //       this.findPlayerInfo;
-  //       this.findCoachInfo;
-  //     })
-  //     .catch(err => console.log(`err: ${err}`));
-  // }
-
-  logout(ev) {
-    ev.preventDefault();
-    this.setState({ user: {}, logged: false });
-    TokenService.destroy();
-  }
 
   findUsers() {
     axios("http://localhost:3000/users", {
@@ -195,15 +189,6 @@ class App extends Component {
     .catch(err => console.log(`err: ${err}`));
   }
 
-  checkLogin() {
-    axios("http://localhost:3000/isLoggedIn", {
-      headers: {
-        Authorization: `Bearer ${TokenService.read()}`
-      }
-    })
-      .then(resp => console.log(resp))
-      .catch(err => console.log(err));
-  }
 
   render() {
     if (this.state.loadedInitialData === true) {
@@ -297,6 +282,7 @@ class App extends Component {
                     <Coach
                       {...props}
                       users={this.state.users}
+                      user={this.state.user}
                       coachInfo={this.state.coachInfo}
                     />
                   </div>

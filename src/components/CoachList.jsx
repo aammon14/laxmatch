@@ -20,9 +20,10 @@ export default class CoachList extends Component {
                     if (coach.id === info.user_id) {
                     return (
                       <div key={j}>
+                        <p>coach id: {info.id}, user_id: {info.user_id}</p>
                         <p>{info.bio}</p>
                         <p>Zip code: {info.zip_code}</p>
-                        <Link to='./Message'>
+                        <Link to={`./coaches/${info.id}`}>
                           <button>Book a Lesson!</button>
                         </Link>
                       </div>
