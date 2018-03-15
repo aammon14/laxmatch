@@ -85,7 +85,7 @@ class App extends Component {
     })
       .then(resp => {
         TokenService.save(resp.data.token);
-        this.findPlayerInfo();
+        this.findPlayerInfo;
       })
       .catch(err => console.log(`err: ${err}`));
   }
@@ -97,7 +97,7 @@ class App extends Component {
     })
       .then(resp => {
         TokenService.save(resp.data.token);
-        this.findCoachInfo();
+        this.findCoachInfo;
       })
       .catch(err => console.log(`err: ${err}`));
   }
@@ -190,7 +190,7 @@ class App extends Component {
       TokenService.save(resp.data.token);
       this.setState({ playerInfo: resp.data.playerInfo });
       console.log('in updatePlayer, playerInfo is', this.state.playerInfo);
-      this.findPlayerInfo();
+      this.findPlayerInfo;
     })
     .catch(err => console.log(`err: ${err}`));
   }

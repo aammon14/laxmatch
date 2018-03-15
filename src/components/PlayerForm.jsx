@@ -28,6 +28,7 @@ export default class PlayerForm extends Component {
     this.setState({
       [name]: value
     });
+    this.handleSubmit
   }
 
   render() {

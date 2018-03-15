@@ -17,6 +17,7 @@ export default class EditCoach extends Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.submit(this.state);
+    this.props.findCoachInfo();
   }
 
   handleChange(e) {
