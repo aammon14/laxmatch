@@ -27,21 +27,6 @@ export default class PlayerProfile extends Component {
     });
   }
 
-  // updatePlayer(data) {
-  //   //console.log('in updatePlayer, player is ', this.state.playerInfo);
-  //   axios(`http://localhost:3000/users/${this.state.user.id}/player`, {
-  //     method: "PUT",
-  //     data
-  //   }).then(resp => {
-  //     // TokenService.save(resp.data.token);
-  //     console.log('resp is ', resp.data.playerInfo)
-  //     this.setState({ playerInfo: resp.data.playerInfo });
-  //     console.log('in updatePlayer, playerInfo is', this.state.playerInfo);
-  //     // this.findPlayerInfo();
-  //   })
-  //   .catch(err => console.log(`err: ${err}`));
-  // }
-
   render() {
     const player = this.state.playerInfo;
     console.log('player is ', player);

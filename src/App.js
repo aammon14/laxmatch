@@ -37,6 +37,8 @@ class App extends Component {
     this.findCoachInfo = this.findCoachInfo.bind(this);
     this.findPlayerInfo = this.findPlayerInfo.bind(this);
     this.createPlayerInfo = this.createPlayerInfo.bind(this);
+    this.getMessages = this.getMessages.bind(this);
+    this.createMessage = this.createMessage.bind(this);
   }
 
   componentDidMount() {
@@ -206,6 +208,17 @@ class App extends Component {
       .catch(err => console.log(`err: ${err}`));
   }
 
+  createMessage(data) {
+    axios(`http://localhost:3000/messages`, {
+      method: "POST",
+      data
+    })
+      .then(resp => {
+        TokenService.save(resp.data.token);
+      })
+      .catch(err => console.log(`err: ${err}`));
+  }
+
 
   render() {
     if (this.state.loadedInitialData === true) {
@@ -302,7 +315,9 @@ class App extends Component {
                       users={this.state.users}
                       user={this.state.user}
                       coachInfo={this.state.coachInfo}
+                      playerInfo={this.state.playerInfo}
                       dataLoaded={this.state.loadedInitialData}
+                      createMessage={this.createMessage}
                     />
                   </div>
                 );
