@@ -6,24 +6,28 @@ class Coach extends Component {
     this.state = {
       coach: {},
       user: this.props.user,
+      users: this.props.users,
       message: ""
     };
     console.log('in coach comp, this.props', this.props)
     console.log('in coach comp, this.state', this.state)
+    console.log('this.props.match.params.id: ', this.props.match.params.id)
   }
+  // componentDidMount() {
+
+  // }
   render() {
-    return (
-      <div>
-        <div>
-          <h1>Message Coach</h1>
-          <h1>{this.props.coachInfo.name}</h1>
-          <p>{this.state.coach.bio}</p>
-          <p>{this.state.coach.price}</p>
-          <p>{this.state.coach.zip_code}</p>
-          <img src={this.state.coach.image} />
-        </div>
-      </div>
-    );
+    const coach = this.props.users.map((person, i) => {
+      console.log('in coach render, person: ', person)
+      if (person.id == this.props.match.params.id) {
+        return (
+          <div>
+            <h1>Coach {person.name}</h1>
+          </div>
+        )
+      }
+    })
+    return <div>{coach}</div>
   }
 }
 export default Coach;

@@ -23,7 +23,7 @@ export default class CoachList extends Component {
                         <p>coach id: {info.id}, user_id: {info.user_id}</p>
                         <p>{info.bio}</p>
                         <p>Zip code: {info.zip_code}</p>
-                        <Link to={`./coaches/${info.id}`}>
+                        <Link to={`./coaches/${info.user_id}`}>
                           <button>Book a Lesson!</button>
                         </Link>
                       </div>

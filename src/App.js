@@ -57,6 +57,7 @@ class App extends Component {
         console.log("state is ", this.state);
         this.findPlayerInfo;
         this.findCoachInfo;
+        this.findUsers;
         console.log("in login, user: ", this.state);
       })
       .catch(err => console.log(`err: ${err}`));
@@ -284,6 +285,7 @@ class App extends Component {
                       users={this.state.users}
                       user={this.state.user}
                       coachInfo={this.state.coachInfo}
+                      dataLoaded={this.state.loadedInitialData}
                     />
                   </div>
                 );
