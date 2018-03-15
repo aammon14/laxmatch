@@ -9,7 +9,8 @@ export default class CoachProfile extends Component {
     super(props);
     this.state = {
       editing: false,
-      coachInfo: this.props.coachInfo
+      coachInfo: this.props.coachInfo,
+      messages: this.props.messages
     }
     this.editProfile = this.editProfile.bind(this)
   }
@@ -52,10 +53,20 @@ export default class CoachProfile extends Component {
                 <h3>Price: ${info.price} per hour</h3>
                 <p>About me: {info.bio}</p>
                 <img src={info.image} />
+              
+              {this.state.messages.map((msg, j) => {
+                if (info.id === msg.coach_id) {
+                  return (
+                    <h3 key={j}>Message from player_id {msg.player_id}: {msg.body}</h3>
+                  )
+                }
+              })}
               </div>
             )
           }        
         })}
+
+        
         
         <Link to="/coaches">
           <button>View Coaches</button>

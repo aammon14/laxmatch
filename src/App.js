@@ -24,7 +24,8 @@ class App extends Component {
       logged: false,
       users: [],
       coachInfo: {},
-      playerInfo: {}
+      playerInfo: {},
+      messages: {}
     };
     this.signup = this.signup.bind(this);
     this.login = this.login.bind(this);
@@ -42,6 +43,7 @@ class App extends Component {
     this.findUsers();
     this.findCoachInfo();
     this.findPlayerInfo();
+    this.getMessages();
     console.log("in componentDidMount, this.state: ", this.state);
   }
 
@@ -190,6 +192,20 @@ class App extends Component {
     .catch(err => console.log(`err: ${err}`));
   }
 
+  getMessages() {
+    axios(`http://localhost:3000/messages`, {
+      method: "GET"
+    })
+      .then(resp => {
+        console.log('in getMessages, resp.data is: ', resp.data);
+        this.setState({
+          messages: resp.data
+        });
+        console.log('in get messages, this.state.messages: ', this.state.messages)
+      })
+      .catch(err => console.log(`err: ${err}`));
+  }
+
 
   render() {
     if (this.state.loadedInitialData === true) {
@@ -252,6 +268,7 @@ class App extends Component {
                       updateCoach={this.updateCoach}
                       findCoachInfo={this.findCoachInfo}
                       findPlayerInfo={this.findPlayerInfo}
+                      messages={this.state.messages}
                     />
                   </div>
                 );

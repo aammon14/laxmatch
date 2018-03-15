@@ -18,10 +18,10 @@ class Coach extends Component {
   // }
   render() {
     const coach = this.props.users.map((person, i) => {
-      console.log('in coach render, person: ', person)
+      //console.log('in coach render, person: ', person)
       if (person.id == this.props.match.params.id) {
         return (
-          <div>
+          <div key={i}>
             <h1>Coach {person.name}</h1>
           </div>
         )

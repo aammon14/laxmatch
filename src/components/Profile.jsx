@@ -30,6 +30,7 @@ export default class Profile extends Component {
           user={this.props.user} 
           coachInfo={this.props.coachInfo} 
           findCoachInfo={this.props.findCoachInfo}
+          messages={this.props.messages}
         />
       )
     }
