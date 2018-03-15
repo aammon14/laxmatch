@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import EditUser from './EditUser';
+//import EditUser from './EditUser';
 import EditPlayer from './EditPlayer';
-import axios from 'axios';
+//import axios from 'axios';
 
 
 export default class PlayerProfile extends Component {

@@ -42,7 +42,7 @@ body {
   text-align: center;
   height: 800px;
   background-image: url('./images/background.jpg');
-  background-size: contain;
+  background-size: 100% 100%;
   text-shadow: 2px 2px #0042ad;
   background-repeat: no-repeat;
 }
@@ -74,3 +74,83 @@ body {
   color: #0042ad;
   font-size: 20px;
 }
+.footer {
+  bottom: 0;
+  left: 0;
+  height: 20%;
+  background: linear-gradient(black, #0042ad);
+  position: fixed;
+  width: 100%;
+  z-index: 90;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  text-decoration: none;
+  flex-direction: row;
+}
+
+.signIn {
+  text-align: center;
+  border: 3px solid #0042ad;
+  border-radius: 5px;
+  width: 300px;
+  height: 250px;
+  margin: 100px auto;
+  padding: 20px auto;
+  background: rgb(0, 66, 173, 0.5);
+}
+
+.label {
+  margin: 10px;
+}
+
+input {
+  margin: 10px;
+}
+.submitButton {
+  width: 100px;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 2px solid white;
+  background: linear-gradient(#0042ad, black);
+  box-shadow: 2px 2px black;
+  color: white;
+  font-size: 15px;
+}
+.submitButton:hover {
+  border: 2px solid #0042ad;
+  background: white;
+  color: #0042ad;
+}
+
+.signUp {
+  text-align: center;
+  border: 3px solid #0042ad;
+  border-radius: 5px;
+  width: 300px;
+  height: 350px;
+  margin: 100px auto;
+  padding: 20px auto;
+  background: rgb(0, 66, 173, 0.5);
+}
+.coachListItem {
+  border: 3px solid #0042ad;
+  border-radius: 15px;
+  margin: 10px;
+  padding: 10px;
+  display: flex;
+}
+.coachListItem h1 {
+  text-align: center;
+}
+.coachListText {
+  width: 70%;
+}
+.coachListImage {
+  width: 25%;
+}
+
+
+
+

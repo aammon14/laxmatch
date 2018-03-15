@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import EditUser from './EditUser';
+//import EditUser from './EditUser';
 import EditCoach from './EditCoach';
 
 
@@ -52,7 +52,7 @@ export default class CoachProfile extends Component {
                 <h3>Zip Code: {info.zip_code}</h3>
                 <h3>Price: ${info.price} per hour</h3>
                 <p>About me: {info.bio}</p>
-                <img src={info.image} />
+                <img src={info.image} alt='coach' />
               
               {this.state.messages.map((msg, j) => {
                 if (info.id === msg.coach_id) {

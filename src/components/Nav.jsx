@@ -5,6 +5,12 @@ class Nav extends Component {
   render() {
     return (
       <div className="nav_bar">
+        
+        <div className="nav_links">
+          <Link className="nav_none" to="/">
+            Home
+          </Link>
+        </div>
         <div className="nav_links">
           <Link className="nav_none" to="/coaches">
             Coaches
@@ -26,8 +32,8 @@ class Nav extends Component {
           </Link>
         </div>
         <div className="nav_links">
-          <Link className="nav_none" to="/">
-            Home
+          <Link className="nav_none" onClick={this.props.logout} to='/'>
+             Logout
           </Link>
         </div>
       </div>

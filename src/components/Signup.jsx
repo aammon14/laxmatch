@@ -39,10 +39,10 @@ export default class Signup extends Component {
   render() {
 
     return (
-      <div>
+      <div className='signUp'>
         <h1>Sign Up for LaxMatch:</h1>
         <form onSubmit={this.handleSubmit}>
-          <label>Name
+          <label className='label'>Name
             <input 
               type="text" 
               name="name" 
@@ -50,7 +50,7 @@ export default class Signup extends Component {
               value={this.state.name} />
           </label>
           <br />
-          <label>Email
+          <label className='label'>Email
             <input 
               type="text" 
               name="email" 
@@ -58,7 +58,7 @@ export default class Signup extends Component {
               value={this.state.email} />
           </label>
           <br />
-          <label>Password
+          <label className='label'>Password
             <input 
               type="password" 
               name="password" 
@@ -66,7 +66,7 @@ export default class Signup extends Component {
               value={this.state.password} />
           </label>
           <br />
-          <label>Role
+          <label className='label'>Role
             <select name='role' value={this.state.role} onChange={this.handleChange}>
               <option>-- Select --</option>
               <option name='role' value='player'>Player</option>
@@ -74,9 +74,8 @@ export default class Signup extends Component {
             </select>
           </label>
           <br />
-          <button type="submit" value="Submit">Submit</button>
+          <button className='submitButton' type="submit" value="Submit">Submit</button>
         </form>
-        <p><Link to="/"><button>Back Home</button></Link></p>
       </div>
     )
   }

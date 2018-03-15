@@ -10,9 +10,8 @@ import CoachList from "./components/CoachList";
 import Coach from "./components/Coach"
 import PlayerForm from "./components/PlayerForm"
 import CoachForm from "./components/CoachForm"
-// import CoachPortal from "./components/CoachPortal";
-import Message from "./components/Message";
 import TokenService from "./services/TokenService";
+import Footer from "./components/Footer"
 import "./App.css";
 
 class App extends Component {
@@ -55,14 +54,8 @@ class App extends Component {
       data
     })
       .then(resp => {
-        console.log("login resp ", resp);
         TokenService.save(resp.data.token);
         this.setState({ user: resp.data.user, logged: true});
-        console.log("state is ", this.state);
-        this.findPlayerInfo;
-        this.findCoachInfo;
-        this.findUsers;
-        console.log("in login, user: ", this.state);
       })
       .catch(err => console.log(`err: ${err}`));
   }
@@ -92,8 +85,7 @@ class App extends Component {
       .then(resp => {
         TokenService.save(resp.data.token);
         this.setState({ user: resp.data.user });
-        console.log("in signup, this.state: ", this.state);
-        this.findUsers
+        this.findUsers();
       })
       .catch(err => console.log(`err: ${err}`));
   }
@@ -105,7 +97,7 @@ class App extends Component {
     })
       .then(resp => {
         TokenService.save(resp.data.token);
-        this.findPlayerInfo;
+        this.findPlayerInfo();
       })
       .catch(err => console.log(`err: ${err}`));
   }
@@ -117,7 +109,7 @@ class App extends Component {
     })
       .then(resp => {
         TokenService.save(resp.data.token);
-        this.findCoachInfo;
+        this.findCoachInfo();
       })
       .catch(err => console.log(`err: ${err}`));
   }
@@ -131,7 +123,6 @@ class App extends Component {
         this.setState({ 
           users: resp.data
         });
-        //console.log("in findUsers, users: ", this.state.users);
       })
       .catch(err => console.log(`err: ${err}`));
   }
@@ -145,7 +136,6 @@ class App extends Component {
           coachInfo: resp.data,
           loadedInitialData: true
         });
-        console.log("in findCoachInfo, coachInfo: ", this.state.coachInfo);
       })
       .catch(err => console.log(`err: ${err}`));
   }
@@ -161,14 +151,12 @@ class App extends Component {
           playerInfo: resp.data,
           loadedInitialData: true 
         });
-        console.log("in findPlayerInfo, playerInfo: ", this.state.playerInfo);
       })
       .catch(err => console.log(`err: ${err}`));
   }
 
 
   updateCoach(data) {
-    //console.log('in updateCoach, coach is ', this.state.coachInfo);
     axios(`http://localhost:3000/users/${this.state.user.id}/coach`, {
       method: "PUT",
       data
@@ -181,15 +169,13 @@ class App extends Component {
   }
 
   updatePlayer(data) {
-    //console.log('in updatePlayer, player is ', this.state.playerInfo);
     axios(`http://localhost:3000/users/${this.state.user.id}/player`, {
       method: "PUT",
       data
     }).then(resp => {
       TokenService.save(resp.data.token);
       this.setState({ playerInfo: resp.data.playerInfo });
-      console.log('in updatePlayer, playerInfo is', this.state.playerInfo);
-      this.findPlayerInfo;
+      this.findPlayerInfo();
     })
     .catch(err => console.log(`err: ${err}`));
   }
@@ -199,11 +185,9 @@ class App extends Component {
       method: "GET"
     })
       .then(resp => {
-        console.log('in getMessages, resp.data is: ', resp.data);
         this.setState({
           messages: resp.data
         });
-        console.log('in get messages, this.state.messages: ', this.state.messages)
       })
       .catch(err => console.log(`err: ${err}`));
   }
@@ -232,8 +216,9 @@ class App extends Component {
               render={props => {
                 return (
                   <div>
-                    <Nav user={this.state.user} />
+                    <Nav user={this.state.user} onClick={this.logout} />
                     <Home />
+                    <Footer />
                   </div>
                 );
               }}
@@ -244,7 +229,7 @@ class App extends Component {
               render={props => {
                 return (
                   <div>
-                    <Nav user={this.state.user} />
+                    <Nav user={this.state.user} onClick={this.logout} />
                     <Signup {...props} submit={this.signup} />
                   </div>
                 );
@@ -256,7 +241,7 @@ class App extends Component {
               render={props => {
                 return (
                   <div>
-                    <Nav user={this.state.user} />
+                    <Nav user={this.state.user} onClick={this.logout} />
                     <Login {...props} submit={this.login} />
                   </div>
                 );
@@ -268,7 +253,7 @@ class App extends Component {
               render={props => {
                 return (
                   <div>
-                    <Nav user={this.state.user} />
+                    <Nav user={this.state.user} onClick={this.logout} />
                     <Profile
                       {...props}
                       user={this.state.user}
@@ -292,7 +277,7 @@ class App extends Component {
               render={props => {
                 return (
                   <div>
-                    <Nav user={this.state.user} />
+                    <Nav user={this.state.user} onClick={this.logout} />
                     <CoachList
                       {...props}
                       users={this.state.users}
@@ -309,7 +294,7 @@ class App extends Component {
               render={props => {
                 return (
                   <div>
-                    <Nav user={this.state.user} />
+                    <Nav user={this.state.user} onClick={this.logout} />
                     <Coach
                       {...props}
                       users={this.state.users}
@@ -329,7 +314,7 @@ class App extends Component {
               render={props => {
                 return (
                   <div>
-                    <Nav user={this.state.user} />
+                    <Nav user={this.state.user} onClick={this.logout} />
                     <PlayerForm
                       {...props}
                       user={this.state.user}
@@ -345,7 +330,7 @@ class App extends Component {
               render={props => {
                 return (
                   <div>
-                    <Nav user={this.state.user} />
+                    <Nav user={this.state.user} onClick={this.logout} />
                     <CoachForm
                       {...props}
                       user={this.state.user}
@@ -355,35 +340,10 @@ class App extends Component {
                 );
               }}
             />
-            <Route
-              exact
-              path="/Message"
-              render={props => {
-                return (
-                  <div>
-                    <Nav user={this.state.user} />
-                    <Message
-                      {...props}
-                      user={this.state.user}
-                      coachInfo={this.state.coachInfo}
-                      playerInfo={this.state.playerInfo}
-                      logged={this.state.logged}
-                      logout={this.logout}
-                    />
-                  </div>
-                )
-              }}
-            />
           </Switch>
         </BrowserRouter>
-
-        <div>
-          <p>
-            <button onClick={this.logout}>Logout</button>
-          </p>
-        </div>
       </div>
-    );
+      );
     } return <div>LOADING...</div>;
   }
 }

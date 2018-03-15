@@ -10,25 +10,27 @@ export default class CoachList extends Component {
     if (this.props.dataLoaded) {
       return (
         <div>
-          <h1>LaxMatch Coaches</h1>
+          <h1>Lacrosse Coaches</h1>
           {this.props.users.map((coach, i) => {
             if (coach.role === 'coach') {
               return (
-                <div key={i}>
-                  <h1>{coach.name}</h1>
-                  {this.props.coachInfo.map((info, j) => {
-                    if (coach.id === info.user_id) {
-                    return (
-                      <div key={j}>
-                        <p>coach id: {info.id}, user_id: {info.user_id}</p>
-                        <p>{info.bio}</p>
-                        <p>Zip code: {info.zip_code}</p>
-                        <Link to={`./coaches/${info.user_id}`}>
-                          <button>Book a Lesson!</button>
-                        </Link>
-                      </div>
-                    )}
-                  })}
+                <div className='coachListItem' key={i}>
+                  <div className='coachListText'>
+                    <h1>{coach.name}</h1>
+                    {this.props.coachInfo.map((info, j) => {
+                      if (coach.id === info.user_id) {
+                      return (
+                        <div key={j}>
+                          <p>coach id: {info.id}, user_id: {info.user_id}</p>
+                          <p>{info.bio}</p>
+                          <p>Zip code: {info.zip_code}</p>
+                          <Link to={`./coaches/${info.user_id}`}>
+                            <button>Book a Lesson!</button>
+                          </Link>
+                        </div>
+                      )}
+                    })}
+                  </div>
                 </div>
               )
             }

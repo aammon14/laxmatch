@@ -28,26 +28,27 @@ export default class Signup extends Component {
 
   render() {
     return (
-      <div>
+      <div className='signIn'>
         <h1>Sign In</h1>
         <form onSubmit={this.handleSubmit}>
-          <label>Email
+          <label className='label'>Email
             <input 
               type="text" 
               name="email" 
               onChange={this.handleChange}
               value={this.state.email} />
           </label>
-          <label>Password
+          <br />
+          <label className='label'>Password
             <input 
               type="password" 
               name="password" 
               onChange={this.handleChange}
               value={this.state.password} />
           </label>
-          <button type="submit" value="Submit">Submit</button>
+          <br />
+          <button className='submitButton' type="submit" value="Submit">Submit</button>
         </form>
-        <p><Link to="/"><button>Back Home</button></Link></p>
       </div>
     )
   }
