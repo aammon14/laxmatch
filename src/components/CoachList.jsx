@@ -15,7 +15,6 @@ export default class CoachList extends Component {
             if (coach.role === 'coach') {
               return (
                 <div className='coachListItem' key={i}>
-                  
                     <h1>{coach.name}</h1>
                     {this.props.coachInfo.map((info, j) => {
                       if (coach.id === info.user_id) {
@@ -35,9 +34,8 @@ export default class CoachList extends Component {
                       )}
                     })}
                   </div>
-                
-              )
-            }
+                )
+              }
           })}
         </div>
       )

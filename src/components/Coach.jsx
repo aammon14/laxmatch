@@ -57,20 +57,20 @@ class Coach extends Component {
     console.log('in getCoachid, this.state: ', this.state)
   }
 
-  // getPlayerId() {
-  //   let playerList = this.props.playerInfo.map(player => {
-  //     if (player.user_id == this.state.user.id) {
-  //       return (
-  //         playerId = player.id
-  //       )
-  //     }
-  //   })
-  //   console.log('playerId', playerId)
-  //   this.setState({
-  //     player_id: playerId
-  //   })
-  //   console.log('in getPlayerId, this.state: ', this.state)
-  // }
+  getPlayerId() {
+    let playerList = this.props.playerInfo.map(player => {
+      if (player.user_id == this.state.user.id) {
+        return (
+          playerId = player.id
+        )
+      }
+    })
+    console.log('playerId', playerId)
+    this.setState({
+      player_id: playerId
+    })
+    console.log('in getPlayerId, this.state: ', this.state)
+  }
 
   render() {
 
@@ -79,12 +79,14 @@ class Coach extends Component {
       if (person.id == this.props.match.params.id) {
         return (
 
-          <div key={i}>
+          <div key={i} className='messageForm'>
             <h1>Send a message to Coach {person.name}:</h1>
-            <p>Be sure to leave {person.name} some information on how to contact you regarding lessons</p>
+            <p>(Be sure to leave {person.name} some information on how to contact you regarding lessons)</p>
               <form onSubmit={this.handleSubmit}>
-                <label>Message
-                  <input 
+                <label>
+                  <br />
+                  <textarea 
+                    placeholder="Enter message here"
                     type="text" 
                     name="body" 
                     onChange={this.handleChange}
@@ -93,7 +95,7 @@ class Coach extends Component {
 
     
                 <br />
-                <button type="submit" value="Submit">Submit</button>
+                <button className='submitButton' type="submit" value="Submit">Submit</button>
               </form>
           </div>
         )

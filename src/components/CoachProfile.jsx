@@ -54,8 +54,8 @@ export default class CoachProfile extends Component {
             {this.props.messages.map((msg, j) => {
               if (info[0].id === msg.coach_id) {
                 return (
-                  <div className='message'>
-                    <h4 key={j}>Message from player.id {msg.player_id}:</h4>
+                  <div key={j} className='message'>
+                    <h4>Message from player.id {msg.player_id}:</h4>
                     <p>{msg.body}</p>
                   </div>
                 )
