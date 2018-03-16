@@ -9,8 +9,6 @@ export default class CoachProfile extends Component {
     super(props);
     this.state = {
       editing: false,
-      coachInfo: this.props.coachInfo,
-      messages: this.props.messages
     }
     this.editProfile = this.editProfile.bind(this)
   }
@@ -37,40 +35,44 @@ export default class CoachProfile extends Component {
       );
     }
     return (
-      <div>
+      <div className='coachProfile'>
         <h1>Hello {this.props.user.name}, welcome to your account!</h1>
-        <button className="profile-button" onClick={this.editProfile}>
-          Edit Profile
-        </button>
-        {updateProfile}
-        <Link to='/CoachForm'><button>Create</button></Link>
-      
-        {this.state.coachInfo.map((info, i) => {
-          if (this.props.user.id === info.user_id) {
-            return (
-              <div key={i}>
-                <h3>Zip Code: {info.zip_code}</h3>
-                <h3>Price: ${info.price} per hour</h3>
-                <p>About me: {info.bio}</p>
-                <img src={info.image} alt='coach' />
-              
-              {this.state.messages.map((msg, j) => {
-                if (info.id === msg.coach_id) {
-                  return (
-                    <h3 key={j}>Message from player_id {msg.player_id}: {msg.body}</h3>
-                  )
-                }
-              })}
-              </div>
-            )
-          }        
-        })}
+
+          {this.props.coachInfo.map((info, i) => {
+            if (this.props.user.id === info.user_id) {
+              return (
+                <div>
+                  <div key={i} className='coachInfo'>
+                      <h3>Zip Code: {info.zip_code}</h3>
+                      <h3>Price: ${info.price} per hour</h3>
+                      <p><b>About me:</b> {info.bio}</p>
+                      <img src={info.image} alt='coach' />
+                  </div>
+                  <div className='inbox'>
+                    <h2>Message Inbox</h2>
+                    {this.props.messages.map((msg, j) => {
+                      if (info.id === msg.coach_id) {
+                        return (
+                          <div className='message'>
+                            <h4 key={j}>Message from player.id {msg.player_id}: {msg.body}</h4>
+                            <p>{msg.body}</p>
+                          </div>
+                        )
+                      }
+                    })}
+                  </div>
+                </div>
+              )
+            }        
+          })}
 
         
+          <button className="submitButton" onClick={this.editProfile}>
+            Edit Profile
+          </button>
+          {updateProfile}
+          <Link to='/CoachForm'><button className="submitButton">Create</button></Link>
         
-        <Link to="/coaches">
-          <button>View Coaches</button>
-        </Link>
       </div>
     );
   }

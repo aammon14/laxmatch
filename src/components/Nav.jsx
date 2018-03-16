@@ -32,7 +32,7 @@ class Nav extends Component {
           </Link>
         </div>
         <div className="nav_links">
-          <Link className="nav_none" onClick={this.props.logout} to='/'>
+          <Link className="nav_none" onClick={this.props.onClick} to='/'>
              Logout
           </Link>
         </div>

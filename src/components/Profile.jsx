@@ -8,10 +8,7 @@ export default class Profile extends Component {
     super(props);
     console.log('in profile constructor: ', this.props)
   }
-  // componentDidMount(){
-  //   console.log("in Profile playerInfo is ", this.props.playerInfo);
-  //   this.props.findPlayerInfo();
-  // }
+
   render() {
     if (this.props.user.role === 'player') {
       return (

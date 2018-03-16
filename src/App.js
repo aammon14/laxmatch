@@ -45,6 +45,7 @@ class App extends Component {
     this.findCoachInfo();
     this.findPlayerInfo();
     this.getMessages();
+    this.checkLogin();
     console.log("in componentDidMount, this.state: ", this.state);
   }
 
@@ -61,17 +62,21 @@ class App extends Component {
   }
 
   checkLogin() {
-    axios("http://localhost:3000/isLoggedIn", {
+    axios('http://localhost:3000/isLoggedIn', {
       headers: {
-        Authorization: `Bearer ${TokenService.read()}`
+        Authorization: `Bearer ${TokenService.read()}`,
+      },
+    }).then(resp => {
+      console.log("in checkLogin, resp is ", resp);
+      if (resp.statusText === "OK") {
+        this.setState({logged: true, user: resp.data});
       }
     })
-      .then(resp => console.log(resp))
-      .catch(err => console.log(err));
+    .catch(err => console.log(err));
   }
 
-  logout(ev) {
-    ev.preventDefault();
+  logout() {
+
     this.setState({ user: {}, logged: false });
     TokenService.destroy();
   }
@@ -85,7 +90,6 @@ class App extends Component {
       .then(resp => {
         TokenService.save(resp.data.token);
         this.setState({ user: resp.data.user });
-        this.findUsers();
       })
       .catch(err => console.log(`err: ${err}`));
   }
@@ -163,7 +167,6 @@ class App extends Component {
     }).then(resp => {
       TokenService.save(resp.data.token);
       this.setState({ coachInfo: resp.data.coachInfo });
-      this.findCoachInfo();
     })
     .catch(err => console.log(`err: ${err}`));
   }
@@ -175,7 +178,6 @@ class App extends Component {
     }).then(resp => {
       TokenService.save(resp.data.token);
       this.setState({ playerInfo: resp.data.playerInfo });
-      this.findPlayerInfo();
     })
     .catch(err => console.log(`err: ${err}`));
   }
@@ -231,6 +233,7 @@ class App extends Component {
                   <div>
                     <Nav user={this.state.user} onClick={this.logout} />
                     <Signup {...props} submit={this.signup} />
+                    <Footer />
                   </div>
                 );
               }}
@@ -243,6 +246,7 @@ class App extends Component {
                   <div>
                     <Nav user={this.state.user} onClick={this.logout} />
                     <Login {...props} submit={this.login} />
+                    <Footer />
                   </div>
                 );
               }}
@@ -268,6 +272,7 @@ class App extends Component {
                       findPlayerInfo={this.findPlayerInfo}
                       messages={this.state.messages}
                     />
+                    <Footer />
                   </div>
                 );
               }}
@@ -284,6 +289,7 @@ class App extends Component {
                       coachInfo={this.state.coachInfo}
                       dataLoaded={this.state.loadedInitialData}
                     />
+                    <Footer />
                   </div>
                 )
               }}
@@ -304,6 +310,7 @@ class App extends Component {
                       dataLoaded={this.state.loadedInitialData}
                       createMessage={this.createMessage}
                     />
+                    <Footer />
                   </div>
                 );
               }}
@@ -320,6 +327,7 @@ class App extends Component {
                       user={this.state.user}
                       create={this.createPlayerInfo}
                     />
+                    <Footer />
                   </div>
                 );
               }}
@@ -336,6 +344,7 @@ class App extends Component {
                       user={this.state.user}
                       create={this.createCoachInfo}
                     />
+                    <Footer />
                   </div>
                 );
               }}

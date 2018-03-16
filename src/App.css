@@ -77,7 +77,7 @@ body {
 .footer {
   bottom: 0;
   left: 0;
-  height: 20%;
+  height: 5%;
   background: linear-gradient(black, #0042ad);
   position: fixed;
   width: 100%;
@@ -134,23 +134,97 @@ input {
   padding: 20px auto;
   background: rgb(0, 66, 173, 0.5);
 }
+
+.coachList h1{
+  text-align: center;
+}
 .coachListItem {
   border: 3px solid #0042ad;
   border-radius: 15px;
   margin: 10px;
-  padding: 10px;
-  display: flex;
+  /*padding: 10px 20px;*/
+  box-shadow: 2px 2px black;
 }
 .coachListItem h1 {
-  text-align: center;
+  margin-top: 0;
+  text-align: left;
+  background: #b7d2ff;
+  border-radius: 15px 15px 0 0;
+  border-bottom: 3px solid #0042ad;
+  padding: 5px;
+
+}
+.textImage {
+  display: flex;
 }
 .coachListText {
-  width: 70%;
+  width: 40%;
+  margin-right: 10px;
+  padding:10px;
+}
+.imageDiv {
+  width: 40%;
+  margin-left: 10px;
+  text-align: center;
 }
 .coachListImage {
-  width: 25%;
+  width: 100%;
+  border: 2px solid #0042ad;
+  border-radius: 5px;
+  box-shadow: 2px 2px black;
+  margin: 0 auto;
 }
+.coachProfile {
+  margin-top: 60px;
+  text-align: center;
+}
+.coachInfo {
+  border: 3px solid #0042ad;
+  border-radius: 10px;
+  box-shadow: 2px 2px black;
+  width: 600px;
+  margin: 10px auto;
+  text-align: left;
+  padding: 10px;
 
-
+}
+.coachInfo img {
+  width: 50%;
+}
+.inbox {
+  border: 3px solid #0042ad;
+  border-radius: 10px;
+  box-shadow: 2px 2px black;
+  width: 600px;
+  margin: 10px auto;
+  text-align: left;
+  padding: 10px;
+}
+.message {
+  background: #b7d2ff;
+  border: 1px solid #0042ad;
+  border-radius: 3px;
+  margin: 2px auto;
+  padding: 2px;
+}
+.message:hover {
+  background: white;
+}
+.coachesButton {
+  width: 200px;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 2px solid white;
+  background: linear-gradient(#0042ad, black);
+  box-shadow: 2px 2px black;
+  color: white;
+  font-size: 15px;
+}
+.coachesButton:hover {
+  border: 2px solid #0042ad;
+  background: white;
+  color: #0042ad;
+}
 
 

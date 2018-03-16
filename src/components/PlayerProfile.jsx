@@ -39,30 +39,30 @@ export default class PlayerProfile extends Component {
       );
     }
       return (
-        <div>
+        <div className='coachProfile'>
           <h1>Hello {this.props.user.name}, welcome to your account!</h1>
-          <button className="profile-button" onClick={this.editProfile}>
-            Edit Profile
-          </button>
-          {updateProfile}
-          <Link to='/PlayerForm'><button>Create</button></Link>
+          <Link to="/coaches">
+            <button className="coachesButton">View Coaches</button>
+          </Link>
             
           {this.state.playerInfo.map((info, i) => {
             if (this.props.user.id === info.user_id) {
               return (
-                <div key={i}>
-                  <h3>Zip Code: {info.zip_code}</h3>
-                  <h3>Age: {info.age} years old</h3>
-                  <p>About me: {info.bio}</p>
+                <div className='coachInfo' key={i}>
+                  <p><b>About me:</b> {info.bio}</p>
+                  <h4>Location(zip): {info.zip_code}</h4>
+                  <h4>Age: {info.age} years old</h4>
                 </div>
               )
             }
           })}
-            
+          <button className="submitButton" onClick={this.editProfile}>
+            Edit Profile
+          </button>
+          {updateProfile}
+          <Link to='/PlayerForm'><button className="submitButton">Create</button></Link> 
           
-          <Link to="/coaches">
-            <button>View Coaches</button>
-          </Link>
+          
         </div>
       );
   }
