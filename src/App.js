@@ -50,7 +50,7 @@ class App extends Component {
   }
 
   login(data) {
-    axios("http://localhost:3000/users/login", {
+    axios("https://laxmatchapi.herokuapp.com/users/login", {
       method: "POST",
       data
     })
@@ -62,7 +62,7 @@ class App extends Component {
   }
 
   checkLogin() {
-    axios('http://localhost:3000/isLoggedIn', {
+    axios('https://laxmatchapi.herokuapp.com/isLoggedIn', {
       headers: {
         Authorization: `Bearer ${TokenService.read()}`,
       },
@@ -83,7 +83,7 @@ class App extends Component {
 
   signup(data) {
     console.log("in app.js signup, data is ", data);
-    axios("http://localhost:3000/users/", {
+    axios("https://laxmatchapi.herokuapp.com/users/", {
       method: "POST",
       data
     })
@@ -95,7 +95,7 @@ class App extends Component {
   }
 
   createPlayerInfo(data) {
-    axios(`http://localhost:3000/users/:id/player`, {
+    axios(`https://laxmatchapi.herokuapp.com/users/:id/player`, {
       method: "POST",
       data
     })
@@ -107,7 +107,7 @@ class App extends Component {
   }
 
   createCoachInfo(data) {
-    axios(`http://localhost:3000/users/:id/coach`, {
+    axios(`https://laxmatchapi.herokuapp.com/users/:id/coach`, {
       method: "POST",
       data
     })
@@ -120,7 +120,7 @@ class App extends Component {
 
 
   findUsers() {
-    axios("http://localhost:3000/users", {
+    axios("https://laxmatchapi.herokuapp.com/users", {
       method: "GET"
     })
       .then(resp => {
@@ -132,7 +132,7 @@ class App extends Component {
   }
 
   findCoachInfo() {
-    axios(`http://localhost:3000/users/${this.state.user.id}/coaches`, {
+    axios(`https://laxmatchapi.herokuapp.com/users/${this.state.user.id}/coaches`, {
       method: "GET"
     })
       .then(resp => {
@@ -146,7 +146,7 @@ class App extends Component {
 
   findPlayerInfo() {
     console.log('in findPlayerInfo, user is ', this.state.user);
-    axios(`http://localhost:3000/users/${this.state.user.id}/players`, {
+    axios(`https://laxmatchapi.herokuapp.com/users/${this.state.user.id}/players`, {
       method: "GET"
     })
       .then(resp => {
@@ -161,7 +161,7 @@ class App extends Component {
 
 
   updateCoach(data) {
-    axios(`http://localhost:3000/users/${this.state.user.id}/coach`, {
+    axios(`https://laxmatchapi.herokuapp.com/users/${this.state.user.id}/coach`, {
       method: "PUT",
       data
     }).then(resp => {
@@ -172,7 +172,7 @@ class App extends Component {
   }
 
   updatePlayer(data) {
-    axios(`http://localhost:3000/users/${this.state.user.id}/player`, {
+    axios(`https://laxmatchapi.herokuapp.com/users/${this.state.user.id}/player`, {
       method: "PUT",
       data
     }).then(resp => {
@@ -183,7 +183,7 @@ class App extends Component {
   }
 
   getMessages() {
-    axios(`http://localhost:3000/messages`, {
+    axios(`https://laxmatchapi.herokuapp.com/messages`, {
       method: "GET"
     })
       .then(resp => {
@@ -195,7 +195,7 @@ class App extends Component {
   }
 
   createMessage(data) {
-    axios(`http://localhost:3000/messages`, {
+    axios(`https://laxmatchapi.herokuapp.com/messages`, {
       method: "POST",
       data
     })

@@ -20,11 +20,11 @@ class Coach extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getCoachId = this.getCoachId.bind(this);
-    //this.getPlayerId = this.getPlayerId.bind(this);
+    this.getPlayerId = this.getPlayerId.bind(this);
   }
   componentDidMount() {
     this.getCoachId();
-    //this.getPlayerId();
+    this.getPlayerId();
     console.log('in coach comp did mount, this.state', this.state)
   }
   handleSubmit(e) {
