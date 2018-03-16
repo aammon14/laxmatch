@@ -20,11 +20,11 @@ class Coach extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getCoachId = this.getCoachId.bind(this);
-    this.getPlayerId = this.getPlayerId.bind(this);
+    //this.getPlayerId = this.getPlayerId.bind(this);
   }
   componentDidMount() {
     this.getCoachId();
-    this.getPlayerId();
+    //this.getPlayerId();
     console.log('in coach comp did mount, this.state', this.state)
   }
   handleSubmit(e) {
@@ -57,20 +57,20 @@ class Coach extends Component {
     console.log('in getCoachid, this.state: ', this.state)
   }
 
-  getPlayerId() {
-    let playerList = this.props.playerInfo.map(player => {
-      if (player.user_id == this.state.user.id) {
-        return (
-          playerId = player.id
-        )
-      }
-    })
-    console.log('playerId', playerId)
-    this.setState({
-      player_id: playerId
-    })
-    console.log('in getPlayerId, this.state: ', this.state)
-  }
+  // getPlayerId() {
+  //   let playerList = this.props.playerInfo.map(player => {
+  //     if (player.user_id == this.state.user.id) {
+  //       return (
+  //         playerId = player.id
+  //       )
+  //     }
+  //   })
+  //   console.log('playerId', playerId)
+  //   this.setState({
+  //     player_id: playerId
+  //   })
+  //   console.log('in getPlayerId, this.state: ', this.state)
+  // }
 
   render() {
 
